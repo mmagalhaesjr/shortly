@@ -1,22 +1,22 @@
 import { Router } from "express";
-import { deleteId, id, openShortUrl, Shorten } from "../controller/urls.controller";
+import { deleteId, getUrlById, openShortUrl, shorten } from "../controller/urls.controller.js";
 
 
-const urls= Router();
-
-
-
-urls.post('/urls/shorten', Shorten)
-
-urls.get('/urls/:id',id)
-
-urls.get('/urls/open/:shortUrl',openShortUrl)
-
-urls.delete('/urls/:id',deleteId)
+const urlsRoutes = Router();
 
 
 
+urlsRoutes.post('/urls/shorten', shorten)
+
+urlsRoutes.get('/urls/:id',getUrlById)
+
+urlsRoutes.get('/urls/open/:shortUrl', openShortUrl)
+
+urlsRoutes.delete('/urls/:id',deleteId)
 
 
 
-export default urls
+
+
+
+export default urlsRoutes

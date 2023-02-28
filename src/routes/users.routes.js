@@ -1,19 +1,19 @@
 import { Router } from "express";
-import { ranking, usersMe } from "../controller/users.controller";
+import { getUrlByUser, ranking } from "../controller/users.controller.js";
 
 
 
-const user= Router();
+const userRoutes = Router();
 
 
 
-user.get('/users/me',usersMe)
+userRoutes.get('/users/me',getUrlByUser)
 
-user.get('/ranking',ranking)
-
-
+userRoutes.get('/ranking',ranking)
 
 
 
 
-export default user
+
+
+export default userRoutes

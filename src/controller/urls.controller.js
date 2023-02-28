@@ -1,8 +1,8 @@
-export async function Shorten(req,res){
+export async function shorten(req,res){
 
 };
 
-export async function id(req,res){
+export async function getUrlById(req,res){
 
 };
 
