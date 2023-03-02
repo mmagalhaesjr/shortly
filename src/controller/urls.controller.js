@@ -50,7 +50,20 @@ export async function getUrlById(req, res) {
 };
 
 export async function openShortUrl(req, res) {
+    const shortUrl = req.params.shortUrl
+    
+    try {
+       
+        const url = res.locals.urlData.rows[0].url
 
+        await db.query(`UPDATE urls SET "visitCount" = "visitCount"+1 WHERE "shortUrl" = $1`, [shortUrl])
+
+        return res.redirect(url)
+
+        
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 };
 
 export async function deleteId(req, res) {
