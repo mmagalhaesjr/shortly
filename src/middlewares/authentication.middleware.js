@@ -22,12 +22,12 @@ export async function validateLogin(req, res, next) {
 
     try {
         const user = await db.query(`SELECT * FROM users WHERE email = $1`, [email])
-        if (!user.rows[0]) return res.status(422).send('Email ou Senha invalidos!')
+        if (!user.rows[0]) return res.status(401).send('Email ou Senha invalidos!')
 
 
 
         const passwordOk = bcrypt.compareSync(password, user.rows[0].password)
-        if (!passwordOk) return res.status(400).send("Email ou senha inválidos")
+        if (!passwordOk) return res.status(401).send("Email ou senha inválidos")
 
         res.locals.userId = user.rows[0].id
 
