@@ -4,12 +4,11 @@ import { db } from '../config/database.js';
 
 export async function shorten(req, res) {
     const { url } = req.body;
-    const date = dayjs().format('YYYY-MM-DD')
     const shortUrl = nanoid(7)
 
 
     try {
-        const resultQuery = await db.query(`INSERT INTO urls ("userId",url,"shortUrl","createdAt","visitCount") VALUES ($1,$2,$3,$4,$5) `, [res.locals.userId, url, shortUrl, date, 0])
+        const resultQuery = await db.query(`INSERT INTO urls ("userId",url,"shortUrl","visitCount") VALUES ($1,$2,$3,$4) `, [res.locals.userId, url, shortUrl, 0])
 
         const { rows } = await db.query(`SELECT id, "shortUrl" FROM urls WHERE url = $1`, [url]);
 
