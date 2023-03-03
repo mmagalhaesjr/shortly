@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import dayjs from 'dayjs';
 import { db } from '../config/database.js';
+import { query } from 'express';
 
 export async function shorten(req, res) {
     const { url } = req.body;
@@ -24,27 +25,8 @@ export async function shorten(req, res) {
 };
 
 export async function getUrlById(req, res) {
-    const { id } = req.params
-
-    try {
-
-        const shortUrl = await db.query(`SELECT id,"shortUrl", url  FROM urls WHERE id = $1`, [id]);
-
-        const obj = shortUrl.rows[0];
-
-        if (!obj) {
-
-           return res.sendStatus(404)
-        }
-
-        return res.status(200).send(obj)
-
-
-    } catch (error) {
-        res.status(500).send(error.message)
-    }
-
-
+    
+        return res.status(200).send(res.locals.obj)
 
 };
 
@@ -66,5 +48,12 @@ export async function openShortUrl(req, res) {
 };
 
 export async function deleteId(req, res) {
+
+   const id = res.locals.id;
+
+   await db.query(`DELETE FROM urls WHERE id = $1`,[id])
+
+   res.sendStatus(204);
+
 
 }; 
